@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deja de procrastinar</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  min-height: 100vh;
+
+  background-image: url('img/fondo1.jpg'); /* 👈 TU IMAGEN */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🔥 CAPA OSCURA CORRECTA (sin bug gris) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  z-index: 0;
+}
+
+/* CONTENIDO */
+.container {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 420px;
+  padding: 20px;
+}
+
+/* TEXTOS */
+h1 {
+  font-size: clamp(26px, 6vw, 42px);
+  line-height: 1.2;
+}
+
+p {
+  font-size: 15px;
+}
+
+h1, p {
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+/* INPUTS */
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+
+/* BOTONES */
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-principal {
+  background: #e50914;
+  animation: pulse 1.5s infinite;
+}
+
+/* BOTONES EXTRA */
+.botones-extra {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.botones-extra button {
+  flex: 1;
+  font-size: 14px;
+  padding: 12px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* FRASES */
+.frases {
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 480px) {
+  .botones-extra {
+    flex-direction: column;
+  }
+
+  input {
+    font-size: 16px;
+  }
+}
+
+/* ANIMACIONES */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  70% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<audio id="bgAudio" src="audio.mp3" loop></audio>
+
+<div class="container">
+  <h1>Deja de procrastinar en 7 días</h1>
+  <p>No es falta de disciplina... es un patrón que no sabes romper</p>
+
+  <input type="text" id="nombre" placeholder="Tu nombre">
+  <input type="email" placeholder="Tu correo">
+
+  <button class="btn-principal" onclick="guardarYEntrar()">
+    PROBAR VERSIÓN GRATUITA
+  </button>
+
+  <div class="botones-extra">
+    <button>Claridad Mental</button>
+    <button>Acción Inmediata</button>
+    <button>Resultados Reales</button>
+  </div>
+
+  <div class="frases" id="frase"></div>
+</div>
+
+<script>
+// AUDIO
+document.addEventListener("click", () => {
+  document.getElementById("bgAudio").play();
+}, { once: true });
+
+// FRASES
+const frases = [
+  "Cada día que postergas, te alejas de tu mejor versión",
+  "La acción vence al miedo",
+  "Empieza ahora, no perfecto",
+  "Hazlo aunque no tengas ganas",
+  "Tu futuro depende de lo que hagas hoy"
+];
+
+let j = 0;
+
+function cambiarFrase() {
+  document.getElementById("frase").innerText = frases[j];
+  j = (j + 1) % frases.length;
+}
+
+setInterval(cambiarFrase, 4000);
+cambiarFrase();
+
+// GUARDAR NOMBRE
+
+function guardarYEntrar() {
+  const nombre = document.getElementById("nombre").value.trim();
+
+  if (!nombre) {
+    alert("Por favor escribe tu nombre");
+    return;
+  }
+
+  // Guardas local (para tu app inicial)
+  localStorage.setItem("user_nombre", nombre);
+
+    window.location.href = "app.html";
+}
+
+</script>
+</body>
+</html>

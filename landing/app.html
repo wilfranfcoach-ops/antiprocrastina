@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experiencia Anti-Procrastinación</title>
+
+<style>
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee'); /* 🔥 IMAGEN INICIAL */
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65);
+}
+
+.container {
+  position: relative;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  padding: 20px;
+  z-index: 2;
+}
+
+#text {
+  font-size: clamp(18px, 5vw, 22px);
+  line-height: 1.6;
+  min-height: 120px;
+  padding: 0 10px;
+  box-sizing: border-box;
+
+  /* 🔥 FIX REAL (sin romper responsive) */
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+h1 {
+  font-size: clamp(24px, 6vw, 32px);
+}
+
+input {
+  padding: 14px;
+  width: 100%;
+  border-radius: 12px;
+  border: none;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  max-width: 320px;
+}
+
+.oculto { display: none; }
+
+.barra-bg {
+  background: rgba(255,255,255,0.2);
+  width: 100%;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+.barra {
+  height: 10px;
+  width: 0%;
+  background: #00ffcc;
+  border-radius: 10px;
+}
+
+.boton-pro {
+  padding: 18px 30px;
+  font-size: 18px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(45deg, #00ffcc, #00c6ff);
+  color: black;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+#finalCTA {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 999;
+  background: rgba(0,0,0,0.85);
+  display: none;
+}
+
+#finalCTA.activo {
+  display: flex;
+}
+
+.cta-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 30px 25px;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.cta-title {
+  font-size: clamp(24px, 6vw, 32px);
+}
+
+.cta-line {
+  font-size: clamp(16px, 4.5vw, 18px);
+  margin: 15px 0;
+}
+
+.cta-line span {
+  display: block;
+  font-weight: bold;
+  color: #00ffcc;
+}
+
+.cta-button {
+  width: 100%;
+  padding: 20px;
+  font-size: 18px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(45deg, #00ffcc, #00c6ff);
+  color: black;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+
+.cta-sub {
+  margin-top: 10px;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+@media (max-width: 480px) {
+  .container { padding: 15px; }
+  input { padding: 12px; }
+  #text { min-height: 140px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="voz"></audio>
+
+<audio id="musica" loop>
+  <source src="audio.mp3" type="audio/mpeg">
+</audio>
+
+<div class="overlay"></div>
+
+<div class="container">
+
+<h1>Responde con calma..</h1>
+
+<p id="text"></p>
+
+<button onclick="start()" id="btnStart">Entrar</button>
+
+<div id="inputBox" class="oculto">
+  <input id="respuesta" placeholder="Escribe aquí...">
+  <button onclick="siguiente()">Continuar</button>
+</div>
+
+<div id="progreso" class="oculto">
+  <div class="barra-bg">
+    <div id="barra" class="barra"></div>
+  </div>
+  <div id="porcentaje">0%</div>
+</div>
+
+<div id="finalCTA" class="oculto">
+  <div class="cta-card">
+
+    <h2 class="cta-title">Espera...</h2>
+
+    <p class="cta-line">
+      Esto que hiciste...
+      <span>no lo hace cualquiera.</span>
+    </p>
+
+    <p class="cta-line">
+      Puedes volver atrás...
+      <span>o avanzar hacia tu cambio real.</span>
+    </p>
+
+    <p class="cta-decision">Tú decides.</p>
+
+    <button onclick="continuar()" class="cta-button">
+      ▶ CONTINUAR PROCESO
+    </button>
+
+    <p class="cta-sub">
+      🔒 Acceso al plan completo y personalizado
+    </p>
+
+  </div>
+</div>
+
+</div>
+
+<script>
+
+
+// AUDIO
+function activarAudio(){
+  const audio = document.getElementById("musica");
+  audio.volume = 0.2;
+  audio.play().catch(()=>{});
+}
+
+// PREGUNTAS
+const pasos = [
+  "Hay algo que llevas tiempo postergando, cuentame que es?...",
+  "Sé honesto contigo... ¿Qué es exactamente lo que te detiene?",
+  "Por un momento conecta con eso... ¿Qué emoción sientes?",
+  "¿Qué pasará si sigues evitándolo?",
+  "¿Qué cambiaría si actuaras hoy?",
+  "Cuentame ¿te llevas algo de esta conversación del día de hoy?"
+
+];
+voz.volume = 0.08;
+let index = 0;
+
+// VOZ
+function hablar(index){
+
+  const voz = document.getElementById("voz");
+  const musica = document.getElementById("musica");
+
+  const audios = [
+    "audio/pregunta1.mp3",
+    "audio/pregunta2.mp3",
+    "audio/pregunta3.mp3",
+    "audio/pregunta4.mp3",
+    "audio/pregunta5.mp3",
+    "audio/pregunta6.mp3"
+  ];
+
+  voz.src = audios[index];
+
+  musica.volume = 0.08;
+
+  voz.play();
+
+  voz.onended = () => {
+    musica.volume = 0.2;
+  };
+}
+
+// START
+function start(){
+
+  const nuevaImagen = new Image();
+  nuevaImagen.src = "https://images.unsplash.com/photo-1490730141103-6cac27aaab94";
+
+  nuevaImagen.onload = () => {
+    document.body.style.backgroundImage = `url('${nuevaImagen.src}')`;
+  };
+
+  document.getElementById("btnStart").style.display = "none";
+  document.getElementById("inputBox").classList.remove("oculto");
+  document.getElementById("progreso").classList.remove("oculto");
+
+  activarAudio();
+
+  setTimeout(() => siguienteTexto(), 800);
+}
+function siguienteTexto(){
+  const texto = pasos[index];
+  typeText(texto);
+  setTimeout(() => hablar(index), 300);
+}
+
+function siguiente(){
+
+  const val = document.getElementById("respuesta").value;
+
+  if(val.trim() === ""){
+    alert("Responde primero");
+    return;
+  }
+
+  document.getElementById("respuesta").value = "";
+
+  index++;
+
+  let progreso = (index / pasos.length * 100);
+  document.getElementById("barra").style.width = progreso + "%";
+  document.getElementById("porcentaje").innerText = Math.round(progreso) + "%";
+
+  if(index < pasos.length){
+    setTimeout(() => siguienteTexto(), 500);
+  } else {
+    document.getElementById("inputBox").classList.add("oculto");
+    document.getElementById("progreso").classList.add("oculto");
+
+    const cta = document.getElementById("finalCTA");
+    cta.classList.remove("oculto");
+    cta.classList.add("activo");
+  }
+}
+
+function continuar(){
+  window.open("https://wilfrancoach.gumroad.com/l/anti-procrastinacion-pro");
+}
+
+// TYPEWRITER
+function typeText(text){
+  let i = 0;
+  const output = document.getElementById("text");
+  output.innerHTML = "";
+
+  function typing(){
+    if(i < text.length){
+      let char = text.charAt(i);
+      output.innerHTML += char;
+
+      let delay = 35;
+      if(char === ".") delay = 400;
+      if(char === ",") delay = 200;
+
+      i++;
+      setTimeout(typing, delay);
+    }
+  }
+
+  typing();
+}
+
+const nombreUsuario = localStorage.getItem("user_nombre");
+
+console.log("Nombre recuperado:", nombreUsuario);
+
+if (nombreUsuario) {
+    document.getElementById("nombreUsuario").innerText =
+    "Hola " + nombreUsuario;
+}
+
+</script>
+
+</body>
+</html>

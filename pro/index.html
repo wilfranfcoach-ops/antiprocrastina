@@ -1,0 +1,2960 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>21 Días Anti Procrastinación</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Segoe UI',sans-serif;
+  color:white;
+  overflow:hidden;
+}
+
+/* PROGRESS */
+#progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:4px;
+  background:#22c55e;
+  width:0%;
+  z-index:999;
+}
+
+/* SCREEN */
+
+
+/* CARD */
+
+.card {
+  width: 60%;
+  max-width: 500px;
+  max-height: 600px;
+  padding: 15px;
+  margin-top: 45px;
+  background: rgba(250,250,250,0.25);; /* 👈 glass suave */
+  border-radius: 18px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* 👈 menos espacio */
+}
+
+.overlay {
+  max-width: 500px;
+  width: 90%;
+
+  background: rgba(0,0,0,0.55);
+  padding: 25px;
+  border-radius: 18px;
+
+  backdrop-filter: blur(12px);
+  text-align: center;
+  color: white;
+  background: rgba(0,0,0,0.6); /* ya lo tienes ✔ */
+
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-dia19 {
+  width: 100%;
+  min-height: 100vh; /* 👈 mejor que height: 100% */
+  
+  display: flex; 
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 60px 20px 20px 20px; /* 👈 top right bottom left */
+  background: rgba(0,0,0,0.55);
+
+
+}
+
+/* TEXT */
+h1{font-size:20px;
+margin-bottom: 5px;
+margin: 0;
+}
+
+
+.big{font-size:28px;font-weight:bold;}
+.frase{font-style:italic;opacity:0.9;}
+
+textarea.dia19 {
+  width: 100%;
+  height: 55px; /* 👈 compacto */
+
+  border-radius: 10px;
+  border: none;
+
+  padding: 10px;
+
+  resize: none;
+
+  font-size: 13px;
+}
+
+/* INPUT */
+textarea{
+  width:100%;
+  min-height:120px;
+  border:none;
+  border-radius:12px;
+  padding:15px;
+  font-size:16px;
+}
+
+
+
+/* BUTTON */
+button {
+  width:100%;
+  padding:12px; /* más delgado */
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  margin: 8px 0;
+}
+
+button:hover {
+  background: #16a34a;
+}
+
+button.btnPDF {
+  background: linear-gradient(to right, #ff4d4d, #b30000);
+}
+
+/* SECOND */
+.secondary{
+  background:#333;
+}
+
+.cierre {
+  background: #f5f5f5;
+  padding: 0px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 5px; /* o incluso 0 */
+  margin-top: 10px;
+}
+
+.cierre h2 {
+  margin-bottom: 15px;
+}
+
+.cierre p {
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.6);
+
+  display: flex;              /* 🔥 CLAVE */
+  justify-content: center;
+  align-items: center;
+}
+
+
+.modal-content {
+  background: white;
+  width: 90%;
+  max-width: 400px;
+  height: 80vh;              /* 🔥 usa vh, no % */
+
+  border-radius: 12px;
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  position: relative; /* 🔥 ESTO ES LA CLAVE */
+}
+
+/* 🔥 BOTÓN X */
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+
+  font-size: 22px;
+  font-weight: bold;
+
+  color: #000;           /* 🔥 negro visible */
+  background: #fff;      /* 🔥 fondo blanco */
+  border-radius: 50%;
+  padding: 5px 10px;
+
+  cursor: pointer;
+  z-index: 10;           /* 🔥 clave */
+}
+
+
+/* 🔥 SCROLL INTERNO */
+.contenido {
+  flex: 1;                   /* 🔥 ESTO LO EXPANDE */
+  overflow-y: auto;
+}
+
+/* 🔥 BOTÓN GUARDAR FIJO */
+.guardar {
+  padding: 12px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.fila-hora {
+  display: flex;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.fila-hora span {
+  width: 60px;
+  font-weight: bold;
+}
+
+.fila-hora input {
+  flex: 1;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+}
+
+
+.cerrar {
+  float: right;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.fila-hora {
+  display: flex;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.fila-hora span {
+  width: 60px;
+  font-weight: bold;
+}
+
+.fila-hora input {
+  flex: 1;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#horario {
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 10px 0;
+}
+
+.cerrar {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.titulo {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  color: black;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 5px;
+  color:black;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 300;   /* más delgada */
+  font-style: italic; /* cursiva */
+  
+}
+
+h5 {
+  text-align: center;
+  margin-bottom: 5px;
+  color:white;
+  font-size: 14px;
+
+}
+
+h6 {
+  text-align: center;
+  margin-bottom: 5px;
+  color:white;
+  font-size: 17px;
+  font-style: italic;
+}
+
+#mensajeFinal {
+  color: black;
+  font-size: 16px;
+  text-align: center;
+
+  margin-top: 15px;
+  margin-bottom: 10px;
+
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6); /* 👈 magia */
+}
+
+#final {
+  background-image: url('bg21.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  min-height: 100vh; /* 👈 clave para que se vea */
+}
+
+/* CONTENEDOR BOTONES */
+#botonesFinal {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap; /* 👈 PARA CELULAR */
+}
+.botones-final {
+  margin-top: 25px;
+
+  display: flex;
+  gap: 12px;
+}
+
+/* 🔥 clave */
+.botones-final button {
+  flex: 1; /* 50% automático */
+}
+
+/* BOTONES BASE */
+
+
+
+/* VOLVER */
+#btnInicio {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  /* 🔥 IMPORTANTE */
+  display: inline-block; /* asegúrate que NO esté en none */
+  padding: 8px 16px;
+  font-size: 14px;  
+  border-radius: 6px;
+}
+.btn-inicio {
+  background: linear-gradient(135deg,#3b82f6,#1d4ed8);
+}
+
+
+
+/* BOTONES */
+#botonesFinal button {
+  padding: 12px 18px;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 180px;
+}
+
+/* DESCARGAR */
+
+#btnDescargar {
+  background-color: #e53935; /* rojo elegante */
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;  
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+
+}
+.btn-descargar {
+  background: linear-gradient(135deg,#ef4444,#b91c1c);
+}
+
+
+/* 📱 MOBILE */
+@media (max-width: 600px) {
+   .final-content {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .cierre h2 {
+    font-size: 22px;
+  }
+
+  .cierre p {
+    font-size: 16px;
+  }
+
+  .botones-final {
+    flex-direction: column;
+  }
+
+  .botones-final button {
+    width: 100%;
+  }
+
+}
+
+.checklist {
+  text-align: left;
+  margin-top: 15px;
+}
+
+.checklist label {
+  display: block;
+  padding: 8px 12px;
+  margin: 6px 0;
+
+  background: rgba(255,255,255,0.08);
+  border-radius: 8px;
+
+  font-size: 15px;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+/* efecto hover */
+.checklist label:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* checkbox más ordenado */
+.checklist input {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+.sub {
+  margin: 0;
+  font-size: 14px;
+}
+
+.sub2 {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+}
+
+.mini {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.checklist input:checked + span {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.checklist input:checked + span {
+  color: #aaa;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#reader .nav-buttons {
+  position: absolute;
+  bottom: 20px;
+  left: 10%;
+  transform: translateX(-50%);
+  padding: 14px 40px;
+
+}
+.btn-volver {
+  background: linear-gradient(135deg, #059669, #065f46);
+}
+
+
+
+input::placeholder,
+textarea::placeholder {
+  color: #b3b3b3;
+  font-style: italic;
+  opacity: 0.6;
+  letter-spacing: 0.5px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between; /* 🔥 esto los separa */
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  padding: 12px 15px;
+  border-radius: 10px;
+  color: white;
+}
+
+/* texto */
+.item span {
+  max-width: 65%;
+}
+
+/* botones lado derecho */
+.opciones {
+  display: flex;
+  gap: 8px;
+}
+
+/* botones */
+.opciones button {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  transition: 0.2s;
+}
+
+/* efecto al presionar */
+.opciones button.active {
+  background: #00c853;
+  transform: scale(1.05);
+}
+
+/* opcional: NO en rojo */
+.opciones button:last-child.active {
+  background: #ff5252;
+}
+
+.alerta {
+  display: none;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+
+  color: #ffcc00;
+  background: rgba(255, 204, 0, 0.15);
+
+  text-align: center;
+  font-size: 14px;
+
+  border-left: 4px solid #ffcc00;
+}
+
+.alerta-box {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  border-left: 4px solid #ffcc00;
+  background-color: rgba(255, 204, 0, 0.1);
+  color: #ffcc00;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: underline;
+}
+
+#alertaRevision {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  background: rgba(255, 204, 0, 0.15);
+  border-left: 5px solid #ffcc00;
+  color: #ffcc00;
+  font-style: italic;
+  text-decoration: underline;
+  border-radius: 6px;
+}
+
+#entrada, #home {
+  background-color: black;
+  color: white;
+  height: 100vh;
+}
+/* Fondo PRO tenue */
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url('fondo1.jpg') center/cover no-repeat;
+  opacity: 0.12;
+  z-index: -1;
+}
+/* Pantallas */
+.screen {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  height: 100dvh;
+  padding: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; 
+
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+
+  overflow-y: auto;
+
+  opacity: 0;
+  transform: scale(1.05);
+  transition: 0.5s;
+}
+/* Pantalla activa */
+.screen.active {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.screen:not(.active) {
+  display: none !important;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+/* Lector PDF */
+iframe {
+ width: 150%;
+  height: 150%;
+  border: none;
+  display: block;
+}
+
+.reini{
+  position: fixed;
+  top: 130px;
+  left: 20px;
+
+  z-index: 99999;
+
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: cente
+
+
+}
+
+#btnAudio {
+  position: fixed;
+  top: 50px;
+  left: 30px;
+  position: fixed;
+  z-index: 2147483647; /* máximo posible */
+
+  width: 50px;
+  height: 50px;
+
+  border-radius: 50%;
+  background: rgba(0,0,0,0.7);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  cursor: pointer;
+}
+
+/* ICONO */
+#btnAudio .icono {
+  font-size: 24px;
+  width: 24px;
+  text-align: center;
+  line-height: 50px; /* 👈 clave */
+}
+
+/* TEXTO (tooltip) */
+#btnAudio .texto {
+  position: absolute;
+  top: 50%;
+  left: 60px;
+  transform: translateY(-50%);
+  z-index: 999999 !important;
+  background: black;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+#btnAudio .texto {
+  opacity: 0;
+ 
+  transition: opacity 0.3s;
+}
+
+#btnAudio:hover .texto {
+  opacity: 1;
+}
+
+#btnAudio:hover {
+  transform: scale(1.1);
+}
+
+
+@media (hover: none) {
+  #btnAudio .texto {
+    display: none; /* no usamos hover en móvil */
+  }
+}
+.contenedor-pdf {
+  position: relative;
+  z-index: 1;
+}
+
+.visor-pdf {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.visor-pdf iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+/* 🔥 BOTÓN VOLVER */
+
+.btn-volver {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+.btn-volver:hover {
+  background: #555;
+}
+
+.titulo_libro {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  color: white;
+  font-size: 18px;
+
+  z-index: 9999;
+}
+
+/* CONTENEDOR */
+#reader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* 🔥 mejor que 100% */
+  background: #111;
+
+  display: none;
+  flex-direction: column;
+}
+
+#reader.active {
+  display: flex;
+}
+/* 🔝 BARRA NEGRA */
+
+.barra-libro {
+  height: 70px;
+  width: 100%;
+  background: #2f2f2f;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.barra-libro span {
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+/* 📄 PDF */
+#reader iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+}
+
+#reader button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  z-index: 9999;
+
+  background: rgba(96,206,213,0.1);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+
+
+.card.light{
+  background: transparent;
+  text-align: center;
+}
+
+textarea{
+  width: 100%;
+  height: 120px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+input{
+  padding: 8px;
+  width: 60px;
+  text-align: center;
+}
+
+input.escoger{
+  padding: 8px;
+  width: 200px;
+  text-align: center;
+}
+
+.acciones-inline{
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-main{
+  flex: 1;
+  background: #22c55e;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.btn-small{
+  width: 50px;
+  background: #444;
+  color: white;
+  border-radius: 10px;
+}
+
+.timer{
+  margin-top: 15px;
+  font-size: 24px;
+  font-weight: bold;
+}
+.btn-vamos {
+  width: 80%;
+  padding: 18px;
+  font-size: 18px;
+  border-radius: 12px;
+  background: red;
+  color: white;
+  border: none;
+  margin-top: 20px;
+}
+
+.btn-resultado {
+  width: 50%;
+  margin: 20px auto;
+  display: block; /* 👈 añade esto */
+  background: red;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  padding: 12px;
+
+  border-radius: 25px;
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.btn-detener {
+  background: black;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+select {
+  display: block;
+  margin-bottom: 10px;
+}
+
+
+.fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 1px; /* 👈 MUY compacto */
+}
+
+.fila label {
+  min-width: 160px; /* 👈 alinea todos los textos */
+}
+
+.stars span {
+  font-size: 22px;
+  color: #bbb;
+}
+
+.stars span.active {
+  color: gold;
+}
+
+
+
+.bloque {
+  margin-bottom: 20px;
+}
+
+.visor-libro {
+  width: 100%;
+  height: 100vh; /* 🔥 ocupa toda la pantalla */
+  display: flex;
+}
+
+.visor-libro iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.btn-descargarlibro {
+  position: fixed;
+  top: 50px;
+  right: 20px;
+
+  background: #22c55e;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+
+  z-index: 1000;
+}
+
+.nombreUsuario {
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.final-screen {
+  justify-content: center;   /* 🔥 centra horizontal */
+  align-items: flex-start;   /* 🔥 mantiene arriba */
+
+  min-height: 80vh;
+  padding: 10px 20px;
+  padding-top: 20px;
+  background-size: cover;
+  background-position: center;
+  margin-top:0px;
+}
+
+/* TARJETA CENTRAL */
+.final-content {
+  width: 100%;
+  max-width: 600px; /* 🔥 antes 500 → súbelo */
+  margin: 0 auto; /* 🔥 ESTO ES CLAVE */
+  background: rgba(255,255,255,0.92);
+  border-radius: 20px;
+  margin-top: 10px;
+  padding: 20px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+#evidencia{
+   height: 60px !important;
+   min-height: 60px !important;
+   max-height: 60px !important;
+   flex: 0 0 auto;
+}
+
+</style>
+
+</head>
+
+<body>
+<!--<audio id="alarma" src="alarma.mp3"></audio>-->
+<audio id="alarma" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+<!--<button class="reini" onclick="resetApp()">Reiniciar app</button>-->
+<button onclick="toggleAudio()" id="btnAudio">
+   <span class="icono">🔊</span>
+   <span class="texto">Sonido</span>
+</button>
+
+<audio id="audio" src="../assets/audio.mp3" loop></audio>
+
+<div id="progress"></div>
+
+<!-- 🟣 PANTALLA 1: BIENVENIDA -->
+
+<!-- 🔥 BIENVENIDA -->
+<div id="entrada" class="screen active">
+  <h1>🔥 Bienvenido</h1>
+  <h1 class="nombreUsuario"></h1>
+  <p>
+    Hoy tomaste una decisión que muchos no toman:
+    dejar de postergar tu vida.
+  </p>
+  <button onclick="go('home')">Entrar a mi transformación</button>
+</div>
+
+<!-- 🏠 HOME -->
+<div id="home" class="screen">
+  <h1>Tu Panel de Cambio</h1>
+
+  <button class="btnPDF" onclick="go('reader')">📖 Leer el libro (Se sugiere hacerlo primero)</button><br>
+  <button onclick="go('inicio')">⚡ Vamos a la acción</button>
+</div>
+
+<!-- 📖 LECTOR -->
+
+<div id="reader" class="screen">
+
+  <!-- 🔝 BARRA SUPERIOR -->
+  <div class="barra-libro">
+    <h1>📖 Tu libro</h1>
+  </div>
+
+  
+
+ <!-- 📄 PDF   <iframe src="libro.pdf#zoom=100"></iframe> --->
+
+<a href="/assets/libro.pdf" download class="btn-descargarlibro">  📥 Descargar libro
+</a>
+
+<div class="visor-libro">
+ <iframe 
+  src="../assets/libro.pdf"
+  width="100%" 
+  height="100%">
+ </iframe>
+</div>
+
+ <div class="nav-buttons">
+  <button class="btn-volver" onclick="nextDay('reader','home')">⬅ Volver</button>
+ </div>
+
+</div>
+
+
+<!-- 1. PANTALLA INSPIRADORA -->
+<div id="inicio" class="screen" style="background-image:url('../img/bg1.jpg')">
+  <div class="overlay">
+    <h1>Ahora que has descubierto que la clave está en ti…</h1>
+    <p class="big">vamos a la acción.</p>
+  </div>
+  <button onclick="startAudio(); go('recuerdo')">Continuar</button>
+ <div class="nav-buttons">
+  <button class="btn-volver" onclick="nextDay('inicio','home')">⬅ Volver</button>
+ </div>
+</div>
+
+<!-- 2. RECORDATORIO -->
+<div id="recuerdo" class="screen" style="background-image:url('../img/bg2.jpg')">
+  <div class="overlay">
+    <h1>¿Qué estás postergando?</h1>
+    <textarea id="goal"></textarea>
+  </div>
+  <button onclick="guardarYMostrar({
+  inputId: 'goal',
+  clave: 'goal',
+  siguiente: 'emociones'
+})">Continuar</button>
+
+<div class="nav-buttons">
+  <button class="btn-volver" onclick="nextDay('recuerdo','inicio')">⬅ Volver</button>
+</div>
+
+
+
+</div>
+
+
+
+<!-- 2. EMOCIONAL -->
+<div id="emociones" class="screen" style="background-image:url('../img/bg2.jpg')">
+  <div class="overlay">
+   <h6>Por un momento conectacte con ese deseo de <h6>
+    <div id="goalText" class="big"></div> <h6> y dime...<h6><br>
+ <div>
+    <h5>¿Que sientes cuando ves que pasa el tiempo y no has hecho nada?</h5>
+    <textarea id="emo_negativa"></textarea>
+  </div>
+<div>
+    <h5>Ahora ¿que sientes si ya lo hubieras realizado?</h5>
+    <textarea id="emo_positiva"></textarea>
+  </div>
+
+
+  <button onclick="guardarYContinuar2(['emo_negativa','emo_positiva'], 'disparadores')">
+  Continuar
+</button>
+<div class="nav-buttons">
+  <button class="btn-volver" onclick="nextDay('emociones','recuerdo')">⬅ Volver</button>
+</div>
+</div>
+</div>
+
+<!-- 2. DISPARADOR -->
+<div id="disparadores" class="screen" style="background-image:url('../img/bg2.jpg')">
+  <div class="overlay">
+   <h6>Vamos para adelante entonces a derribar ese muro<h6>
+   <h6>La procrastinación es un hábito que  se activa por incomodidad y se 
+refuerza con distracción.<h6><br><br>
+ <div>
+    <h5>Identifica el disparador de tu procrastinación o aquel habito  que te impide ir adelante para empezar</h5>
+     <h3> (Ejem: abrir redes sociales cuando algo te resulta difícil o aburrido)</h3>
+    <textarea id="dispara_bloqueo"></textarea>
+  </div>
+<div>
+    <h5>Ahora crea una respuesta alternativa para combatir ese habito bloqueador que nos impide avanzar, este se convertiré en adelante en nuestro habito clave</h5>
+         <textarea id="dispara_avance"></textarea>
+  </div>
+
+  <button onclick="guardarYContinuar2(['dispara_bloqueo','dispara_avance'], 'habito')">
+  Continuar
+</button>
+  <button class="btn-volver" onclick="nextDay('disparadores','emociones')">⬅ Volver</button>
+</div>
+</div>
+</div>
+
+
+<!-- 3. HABITO -->
+<div id="habito" class="screen" style="background-image:url('../img/bg3.jpg')">
+  <div class="overlay">
+    <h1>Tu hábito clave es:</h1>
+   <h1 data-key="dispara_avance"></h1>
+    <p class="frase">
+    Los próximos 21 días vamos a ayudarte a reprogramar tu mente para eliminar la procrastinación.
+    </p>
+  </div>
+  <button onclick="go('semana1')">Continuar</button>
+  <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('habito','recuerdo')">⬅ Volver</button>
+ </div>
+
+</div>
+
+<!-- 4. SEMANA 1 -->
+<div id="semana1" class="screen" style="background-image:url('../img/bg4.jpg')">
+  <div class="overlay">
+    <h1>1ª Semana</h1>
+    <p class="big">Rompe la inercia 🚀</p>
+    <p class="frase">El primer paso es siempre el más poderoso</p>
+  </div>
+  <button onclick="go('dia1')">Comenzar</button>
+ <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('semana1','habito')">⬅ Volver</button>
+ </div>
+
+</div>
+
+<!-- DIA 1 -->
+<div id="dia1" class="screen" style="background-image:url('../img/bg5.jpg')">
+  <div class="overlay">
+    <h1>Día 1</h1>
+
+    <p>Lee tu hábito:</p>
+    <div id="goalText" class="big"></div>
+
+    <button onclick="downloadGoal()">Descargar hábito</button>
+
+    <p class="frase">Visualízalo todos los días.</p>
+  </div>
+  <button onclick="go('dia2')">Continuar</button>
+  <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia1','semana1')">⬅ Volver</button>
+ </div>
+</div>
+
+
+<canvas id="canvas" width="800" height="1000" style="display:none;"></canvas>
+
+<!-- DIA 2 -->
+<div id="dia2" class="screen" style="background-image:url('../img/bg6.jpg')">
+  <div class="overlay">
+    <h1>Día 2</h1>
+    <p>Define un paso pequeño que te ayude a avanzar en tu objetivo</p>
+    <h3>(Por pequeño que sea)</h3>
+
+    <textarea id="d2" placeholder="En lugar de “voy a escribir mi libro”, di “voy a escribir una página”.
+• En lugar de “voy a entrenar”, di “voy a ponerme la ropa deportiva”.
+• En lugar de “voy a estudiar tres horas”, di “voy a abrir el cuaderno”.
+"></textarea>
+  </div>
+  <button onclick="nextDay('dia2','dia3')">Siguiente</button>
+  <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia2','dia1')">⬅ Volver</button>
+ </div>
+</div>
+
+<!-- DIA 3 -->
+<div id="dia3" class="screen" style="background-image:url('../img/bg7.jpg')">
+  <div class="overlay">
+    <h1>Día 3</h1>
+    <p>Bloquea distracciones</p>
+    <h3>(Enumera por lo menos 3)</h3>
+
+   <textarea id="bloqueosInput" placeholder="Ej: Instagram, notificaciones, pensamientos negativos..."></textarea>
+  <div class="acciones-inline">
+    <button onclick="descargarBloqueos()">Descargar mis distractores</button>
+    
+  </div>
+
+<canvas id="canvasBloqueos" width="800" height="1000" style="display:none;"></canvas>
+
+<div class="card light">
+   <h6>Ahora elige una</h6>
+    <p>Durante los próximos 5 minutos voy a bloquear:</p>
+    <input class="escoger" type="text" id="bloqueo_activo" placeholder="Ej: Instagram">
+    <button class="btn-main" onclick="iniciarBloqueo()" style="background: linear-gradient(red, darkred)";>Empezar 5 min</button>
+    <div id="timer" class="timer"></div>
+</div>
+
+
+  <button onclick="nextDay('dia3','dia4')">Siguiente</button>
+
+ <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia3','dia2')">⬅ Volver</button>
+ </div>
+
+</div>
+</div>
+<!-- DIA 4 -->
+<div id="dia4" class="screen" style="background-image:url('../img/bg8.jpg')">
+  <div class="overlay">
+    <h1>Día 4</h1>
+    <p>Toma acción inmediata</p>
+    <h3>(Recuerda no lo pienses 2 veces, actua)</h3>
+    <textarea id="d4"></textarea>
+    <button onclick="iniciarCuenta('dia5')" class="btn-vamos">
+      VAMOS
+       </button>
+   <button onclick="detenerAlarma()" class="btn-detener">
+       Detener alarma
+   </button>
+
+<div id="countdown"></div>    
+
+  </div>
+  <button onclick="nextDay('dia4','dia5')">Siguiente</button>
+ <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia4','dia3')">⬅ Volver</button>
+ </div>
+
+</div>
+
+<!-- DIA 5 -->
+<div id="dia5" class="screen" style="background-image:url('../img/bg9.jpg')">
+  <div class="overlay">
+    <h1>Día 5</h1>
+    <p>Registra tu progreso</p>
+    <h3>(Toma como base la planilla adjunta)</h3>
+       <button onclick="descargarPlanilla()">Descargar planilla</button>
+  </div>
+  <button onclick="nextDay('dia5','dia6')">Siguiente</button>
+  <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia5','dia4')">⬅ Volver</button>
+ </div>
+</div>
+
+<!-- DIA 6 -->
+<div id="dia6" class="screen" style="background-image:url('../img/bg10.jpg')">
+  <div class="overlay">
+    <h1>Día 6</h1>
+    <p>Revisa tu primera semana</p>
+     <h3>(Escribe tus conclusiones)</h3>
+    <textarea id="d6"></textarea>
+  </div>
+  <button onclick="nextDay('dia6','dia7')">Siguiente</button>
+
+ <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia6','dia5')">⬅ Volver</button>
+ </div>
+</div>
+
+<!-- DIA 7 FINAL -->
+<div id="dia7" class="screen" style="background-image:url('../img/bg11.jpg')">
+  <div class="overlay">
+    <h1>Día 7</h1>
+    <p>¿Qué te llevas de esta semana?</p>
+    <textarea id="final1"></textarea>
+  </div>
+  <button onclick="saveFinal('Semana1','final1')">Guardar reflexión</button>
+  <button onclick="terminarSemana1()">Finalizar Semana 1</button>
+
+ <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('final1','dia6')">⬅ Volver</button>
+ </div>
+</div>
+
+
+
+<!-- 5. SEMANA 2 -->
+<div id="semana2" class="screen" style="background-image:url('../img/bg12.jpg')">
+  <div class="overlay">
+    <h1>2ª Semana</h1>
+    <p class="big">Diseña tu sistema personal ⚙️</p>
+    <p class="frase">Un sistema fuerte te lleva más lejos que la fuerza de 
+voluntad</p>
+  </div>
+  <button onclick="go('dia8')">Comenzar</button>
+</div>
+
+<!-- DIA 8 -->
+<div id="dia8" class="screen" style="background-image:url('../img/bg13.jpg')">
+  <div class="overlay">
+    <h1>Día 8</h1>
+
+    <p>Diseña tu rutina diaria:</p>
+    <div id="rutinaText" class="big"></div>
+    <button onclick="abrirHorario()">📅 Ver mi horario</button>
+
+  <div id="modalHorario" class="modal">
+
+  <div class="modal-content">
+
+    <!-- 🔴 BOTÓN CERRAR -->
+    <span class="cerrar" onclick="cerrarHorario()">✖</span>
+
+    <!-- 🟢 TÍTULO -->
+    <h2>Rutina Diaria</h2>
+
+    <!-- 🔵 CONTENIDO CON SCROLL -->
+    <div id="horario" class="contenido"></div>
+
+    <!-- 🟡 BOTÓN FIJO -->
+    <button class="guardar" onclick="guardarRutina()">Guardar</button>
+
+  </div>
+
+</div>
+   
+   <div>
+     <button onclick="go('dia9')">Continuar</button>
+   </div>
+  <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia8','semana2')">⬅ Volver</button>
+ </div>
+ </div>
+</div>
+
+<canvas id="canvasRutina" width="800" height="1000" style="display:none;"></canvas>
+
+<!-- DIA 9 -->
+<div id="dia9" class="screen" style="background-image:url('../img/bg14.jpg')">
+  <div class="overlay">
+    <h1>Día 9</h1>
+    <p>Vincula hábitos</p>
+    <textarea id="d9" placeholder="Ejem: Mientras me ducho, hago flexiones de pecho..."></textarea>
+  </div>
+  <button onclick="nextDay('dia9','dia10')">Siguiente</button>
+
+ <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia9','dia8')">⬅ Volver</button>
+ </div>
+
+</div>
+
+<!-- DIA 10 -->
+<div id="dia10" class="screen" style="background-image:url('../img/bg15.jpg')">
+  <div class="overlay">
+    <h1>Día 10</h1>
+    <p>Usa recordatorios estrategicos</p>
+     <h3>(Escribe lo que vas a hacer para recordar y hazlo)</h3>
+    <textarea id="d10" placeholder="Ejem: 1-Poner alarma a las 6:00 am.."></textarea>
+  </div>
+  <button onclick="nextDay('dia10','dia11')">Siguiente</button>
+
+ <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia10','dia9')">⬅ Volver</button>
+ </div>
+</div>
+
+<!-- DIA 11 -->
+<div id="dia11" class="screen" style="background-image:url('../img/bg16.jpg')">
+  <div class="overlay">
+    <h1>Día 11</h1>
+    <p>Crea incentivos y recompensas</p>
+      <h3>(Escribe cuales y enumeralos)</h3>
+     <textarea id="d11" placeholder="Ejemplo:
+          1 - Primer incentivo
+          2 - Segundo incentivo
+          3 - Tercer incentivo"></textarea>    
+
+  </div>
+    <button onclick="nextDay('dia11','dia12')">Siguiente</button>
+   <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia11','dia10')">⬅ Volver</button>
+ </div>
+
+</div>
+.opciones butto
+<!-- DIA 12 -->
+<div id="dia12" class="screen" style="background-image:url('../img/bg17.jpg')">
+  <div class="overlay">
+    <h1>Día 12</h1>
+    <p>Evalua tu sistema</p>
+    
+  <div class="checklist">
+
+  <div class="item">
+    <span>¿Tu sistema tiene pasos que te permiten siempre avanzar?</span>
+    <div class="opciones">
+      <button onclick="selectOption(this)">SI</button>
+      <button onclick="selectOption(this)">NO</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <span>¿Tienes hábitos que ayudan a tu progreso?</span>
+    <div class="opciones">
+      <button onclick="selectOption(this)">SI</button>
+      <button onclick="selectOption(this)">NO</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <span>¿Tus alarmas son las adecuadas?</span>
+    <div class="opciones">
+      <button onclick="selectOption(this)">SI</button>
+      <button onclick="selectOption(this)">NO</button>
+    </div>
+  </div>
+
+  <div class="item">
+    <span>¿Tus recompensas realmente te hacen sentir bien?</span>
+    <div class="opciones">
+      <button onclick="selectOption(this)">SI</button>
+      <button onclick="selectOption(this)">NO</button>
+    </div>
+  </div>
+
+ </div> 
+
+  <div id="alertaRevision" class="alerta-box">
+    ⚠️ Por favor no avances sin ajustar los ítems que tienen "NO" en la revisión, una vez lo hagas cambia el selector a "SI" para poder avanzar
+  </div> 
+
+
+  </div>
+      <button onclick="nextDay('dia12','dia13')">Siguiente</button>
+
+      <div class="nav-buttons">
+        <button class="btn-volver" onclick="nextDay('dia12','dia11')">⬅ Volver</button>
+     </div>
+
+</div>
+
+<!-- DIA 13 -->
+<div id="dia13" class="screen" style="background-image:url('../img/bg18.jpg')">
+  <div class="overlay">
+    <h1>Día 13</h1>
+    <p>Visualiza tu exito</p>
+     <h3>(Como crees que te ves y te sientes en 1 mes)</h3>
+    <textarea id="d13"></textarea>
+  </div>
+  <button onclick="nextDay('dia13','dia14')">Siguiente</button>
+  <div class="nav-buttons">
+    <button class="btn-volver" onclick="nextDay('dia13','dia12')">⬅ Volver</button>
+ </div>
+</div>
+
+<!-- DIA 14 FINAL -->
+<div id="dia14" class="screen" style="background-image:url('../img/bg2.jpg')">
+  <div class="overlay">
+    <h1>Día 14</h1>
+    <p>Comparte tu progreso, que te llevas de esta semana</p>
+    <textarea id="final2"></textarea>
+  </div>
+   <button onclick="saveFinal('Semana2','final2')">Guardar reflexión</button>
+   <button onclick="terminarSemana2()">Finalizar Semana 2</button>
+  <div class="nav-buttons">
+   <button class="btn-volver" onclick="nextDay('final2','dia13')">⬅ Volver</button>
+ </div>
+</div>
+
+
+
+
+<!-- 6. SEMANA 3 -->
+
+<div id="semana3" class="screen" style="background-image:url('../img/bg19.jpg')">
+  <div class="overlay">
+    <h1>3ª Semana</h1>
+    <p class="big">Consolida tu nueva mentalidad 🧠</p>
+    <p class="frase">No eres lo que haces una vez, eres lo que haces 
+consistentemente</p>
+  </div>
+  <button onclick="go('dia15')">Comenzar</button>
+  
+</div>
+
+<!-- DIA 15 -->
+<div id="dia15" class="screen" style="background-image:url('../img/bg13.jpg')">
+  <div class="overlay">
+    <h1>Día 15</h1>
+
+    <p>Refuerza tu “por qué”:</p>
+      <h3>(Recuerda cada día por qué empezaste, escribelo y repitelo convencido)</h3>
+
+    <div id="porque" class="big"></div>
+      <textarea id="d15" placeholder="Ejem: estoy haciendo ejercicio porque me propuse bajar de peso...
+"></textarea>   
+     </div>
+
+   <button onclick="generarPosterYContinuar({
+  inputId: 'd15',
+  storageKey: 'porqueDia15',
+  titulo: 'MI POR QUÉ',
+  siguiente: 'dia16',
+  fondoImg: '../img/porque.jpg'
+})">
+  Descargar y continuar 🚀
+</button>
+
+ <div class="nav-buttons">
+  <button class="btn-volver" onclick="nextDay('dia15','semana3')">⬅ Volver</button>
+ </div>
+
+</div>
+
+<canvas id="canvasPorque" width="800" height="1200" style="display:none;"></canvas>
+
+<!-- DIA 16 -->
+<div id="dia16" class="screen" style="background-image:url('../img/bg5.jpg')">
+  <div class="overlay">
+    <h1>Día 16</h1>
+    <p>Anticipa obstáculos</p>
+      <h3>(Que dificultades se te estan presentando o se pueden presentar en tu camino y planea cómo enfrentarlos, recuwerda que pueden ser obstácuulos internos o externos)</h3>
+    <textarea id="d16" placeholder="Ejem: sentir pereza al abrir el archivo y terminar revisando el teléfono"></textarea>
+  </div>
+  <button onclick="nextDay('dia16','dia17')">Siguiente</button>
+
+ <div class="nav-buttons">
+  <button class="btn-volver" onclick="nextDay('dia16','dia15')">⬅ Volver</button>
+ </div>
+
+</div>
+
+<!-- DIA 17 -->
+<div id="dia17" class="screen" style="background-image:url('../img/bg8.jpg')">
+  <div class="overlay">
+    <h1>Día 17</h1>
+    <p>Manten consistencia</p>
+
+    <h3>Marca lo que cumpliste hoy:</h3>
+        <div class="checklist">
+           <label><input type="checkbox"> Avancé en mi objetivo</label>
+           <label><input type="checkbox"> Evité distracciones</label>
+           <label><input type="checkbox"> Fui constante</label>
+           <label><input type="checkbox"> Lo intenté aunque no tenía ganas</label>
+           <label><input type="checkbox"> Cumplí mi tiempo mínimo</label>
+     </div>
+
+<!-- MENSAJE DE ERROR AQUÍ -->
+    <p id="errorMsg" style="color: red; display: none;">
+        Debes marcar al menos 4 opciones
+    </p>
+   </div>
+  <button onclick="validarYAvanzar('dia17','dia18')">Siguiente</button>
+ 
+   <div class="nav-buttons">
+     <button class="btn-volver" onclick="nextDay('dia17','dia16')">⬅ Volver</button>
+   </div>
+</div>
+
+<!-- DIA 18 -->
+<div id="dia18" class="screen" style="background-image:url('../img/bg8.jpg')">
+  <div class="overlay">
+    <h1>Día 18</h1>
+    <p>Refuerza tu identidad</p>
+    <h3> Describe brevemente, como te consideras hoy, teniendo como base que eres una persona que siempre logra sus metas</h3>
+    <textarea id="d18"  placeholder="Soy una persona que logra sus metas..."></textarea>
+  </div>
+ 
+   <button onclick="generarPosterYContinuar({
+  inputId: 'd18',
+  storageKey: 'identidadDia18',
+  titulo: 'SOY UNA PERSONA QUE...',
+  siguiente: 'dia19',
+  fondoImg: '../img/identidad.jpg'
+})">
+  Descargar y continuar 🚀
+</button>
+
+ <div class="nav-buttons">
+  <button class="btn-volver" onclick="nextDay('dia18','dia17')">⬅ Volver</button>
+ </div>
+</div>
+
+<!-- DIA 19 -->
+
+<div id="dia19" class="screen" style="background-image:url('../img/bg9.jpg')">
+  <div class="overlay-dia19">
+    <div class="card">
+
+      <h1>Día 19</h1>
+      <p class="sub">Evalúa tu tercera semana</p>
+      <h3 class="sub2">Del 1 (muy bajo) al 5 (excelente)</h3>
+    
+      <!-- BLOQUES -->
+      <div class="fila">
+        <label>Disciplina</label>
+        <div class="stars" data-item="disciplina">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+      </div>
+      <div class="fila">
+        <label>Constancia</label>
+        <div class="stars" data-item="constancia">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+      </div>
+
+      <div class="fila">
+        <label>Enfoque</label>
+        <div class="stars" data-item="enfoque">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+      </div>
+
+      <div class="fila">
+        <label>Acción real tomada</label>
+        <div class="stars" data-item="accion">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+      </div>
+
+        <h3>Evidencia objetiva</h3>
+       <textarea id="evidencia" class="dia19"></textarea>
+
+        <button onclick="evaluarProgreso()" class="btn-resultado">
+           VER RESULTADO
+        </button>
+
+        <h3 id="resultado"></h3>
+    </div>
+   </div>
+
+    <button onclick="nextDay('dia19','dia20')">Siguiente</button> 
+     <div class="nav-buttons"> 
+       <button class="btn-volver" onclick="nextDay('dia19','dia18')">⬅ Volver</button>
+    </div>
+
+</div>
+
+<!-- DIA 20 -->
+<div id="dia20" class="screen" style="background-image:url('../img/bg20.jpg')">
+  <div class="overlay">
+    <h1>Día 20</h1>
+    <p>Prepara proxima meta</p>
+    <p>Escoge un nuevo hábito o mejora uno existente</p>
+
+    <textarea id="d20"></textarea>
+  </div>
+   <button onclick="nextDay('dia20','dia21')">Siguiente</button>
+     <div class="nav-buttons">
+        <button class="btn-volver" onclick="nextDay('dia20','dia19')">⬅ Volver</button>
+     </div>
+
+</div>
+
+<!-- DIA 21 FINAL -->
+<div id="dia21" class="screen" style="background-image:url('../img/bg2.jpg')">
+  <div class="overlay">
+    <h1>Día 21</h1>
+    <p>Revisión Final, que te llevas de esta tercera semana</p>
+    <textarea id="final3"></textarea>
+  </div>
+   <button onclick="saveFinal('Semana3','final3')">Guardar reflexión</button>
+ <!-- 🔥 IMPORTANTE: ahora pasa a pantalla final -->
+  <button onclick="terminarCiclo()">Finalizar</button>
+  <div class="nav-buttons">
+   <button class="btn-volver" onclick="nextDay('final3','dia20')">⬅ Volver</button>
+ </div>
+
+
+</div>
+
+
+<div id="final" class="screen final-screen" style="background-image:url('../img/bg21.jpg');">
+  <div class="final-content">
+     <div class="cierre">
+      <h2>✨ Cierre del ciclo</h2>
+      <p id="mensajeFinal"></p>
+    </div>
+
+    <div class="botones-final">
+      <button class="btn-descargar" onclick="descargarCertificado()">
+        📄 Descargar Certificado
+      </button>
+
+      <button class="btn-inicio" onclick="go('entrada')">
+        Volver al inicio
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+
+
+function mostrarNombreUsuario(){
+
+    const nombreUsuario = localStorage.getItem("user_nombre");
+
+    if (!nombreUsuario) return;
+
+    const elementos = document.querySelectorAll(".nombreUsuario");
+
+    elementos.forEach(elemento => {
+        elemento.innerText = nombreUsuario;
+    });
+
+}
+
+// Ejecutar cuando cargue el DOM
+document.addEventListener("DOMContentLoaded", mostrarNombreUsuario);
+
+let steps = [
+'entrada','inicio','recuerdo','emociones','disparadores','habito','semana1',
+'dia1','dia2','dia3','dia4','dia5','dia6','dia7',
+'semana2','dia8','dia9','dia10','dia11','dia12','dia13','dia14',
+'semana3','dia15','dia16','dia17','dia18','dia19','dia20','dia21'
+];
+
+function go(id){
+  const screens = document.querySelectorAll('.screen');
+  screens.forEach(s => s.classList.remove('active'));
+
+  const pantalla = document.getElementById(id);
+
+  if (!pantalla) {
+    console.error("❌ No existe la pantalla:", id);
+    return; // 🔥 evita que todo se rompa
+  }
+
+  pantalla.classList.add('active');
+
+  localStorage.setItem("pasoActual", id);
+
+  verificarAudio(id);
+
+  if(id === "dia8"){
+    generarHorario();
+  }
+
+  if(id === "final"){
+    generarMensajeFinal();
+  }
+
+  // ⚠️ PROTECCIÓN AQUÍ TAMBIÉN
+  if (typeof cargarDatosAutomaticos === "function") {
+    cargarDatosAutomaticos();
+  }
+}
+
+function startAudio(){
+  const audio = document.getElementById("audio");
+ 
+  if (audio.paused) {
+    audio.play().catch(()=>{});
+  }
+  localStorage.setItem("audioActivo", "true");
+}
+
+function verificarAudio() {
+  const audioActivo = localStorage.getItem("audioActivo");
+
+  if (audioActivo === "true") {
+    const audio = document.getElementById("audio");
+
+    if (audio.paused) {
+      audio.play().catch(()=>{});
+    }
+  }
+}
+
+function toggleAudio(){
+  const audio = document.getElementById("audio");
+  const btn = document.getElementById("btnAudio");
+
+  if(audio.paused){
+    audio.play().catch(()=>{});
+    localStorage.setItem("audioActivo", "true");
+    btn.textContent = "🔊";
+  } else {
+    audio.pause();
+    localStorage.setItem("audioActivo", "false");
+    btn.textContent = "🔇";
+  }
+}
+
+function saveGoal(){
+  guardarYMostrar({
+    inputId: "goal",
+    clave: "goal",
+    outputSelector: "#goalText",
+    siguiente: "habito"
+  });
+}
+
+function nextDay(id, next) {
+
+  const pantalla = document.getElementById(id);
+
+   // 🔴 1. VALIDAR TEXTAREA
+  const textarea = pantalla.querySelector("textarea");
+  if (textarea && textarea.value.trim() === "") {
+    alert("✍️ Debes escribir algo antes de continuar");
+    textarea.focus();
+    return;
+  }
+
+  
+  // 🔴 2. VALIDAR CHECKBOX SOLO DIA 17
+  if(id === "dia17"){
+
+    const checks = pantalla.querySelectorAll("input[type='checkbox']");
+
+    let marcados = 0;
+
+    checks.forEach(c => {
+      if (c.checked) marcados++;
+    });
+
+    if (marcados < 4) {
+      alert("✔️ Debes marcar al menos 4 opciones");
+      return;
+    }
+  }
+
+  // 💾 3. GUARDAR
+  if (textarea) {
+    localStorage.setItem(id, textarea.value);
+  }
+
+  // 🔴 4. VALIDACIÓN ESPECIAL DIA 12
+  if(id === "dia12"){
+    const puedeAvanzar = verificarRevision();
+
+    if(!puedeAvanzar){
+      alert("⚠️ Ajusta los elementos marcados en 'NO' antes de continuar");
+      return;
+    }
+  }
+
+  // 🚨 5. VALIDAR NEXT
+  if(!next){
+    console.error("❌ next no está definido");
+    return;
+  }
+
+  // 👉 AVANZAR
+  go(next);
+}
+
+function cargarDatosAutomaticos(){
+
+  let datos = JSON.parse(localStorage.getItem("datos")) || {};
+
+  document.querySelectorAll("[data-key]").forEach(el => {
+    let clave = el.getAttribute("data-key");
+
+    if(datos[clave]){
+      el.innerText = datos[clave];
+    }
+  });
+
+}
+
+function guardarYMostrar({inputId, clave, outputSelector, siguiente}){
+
+  let valor = document.getElementById(inputId).value;
+
+  if(valor === ""){
+    alert("Escribe algo");
+    return;
+  }
+
+  localStorage.setItem(clave, valor);
+
+  // 👇 SOLO si existe
+  if(outputSelector){
+    document.querySelectorAll(outputSelector).forEach(el=>{
+      el.innerText = valor;
+    });
+  }
+
+  go(siguiente);
+}
+
+
+function guardarYContinuar2(ids, siguiente){
+
+  // 👇 traer lo que ya estaba guardado
+  let datos = JSON.parse(localStorage.getItem("datos")) || {};
+
+  for(let id of ids){
+    let valor = document.getElementById(id).value;
+
+    if(valor === ""){
+      alert("Completa todos los campos");
+      return;
+    }
+
+    datos[id] = valor;
+  }
+
+  // 👇 guardar TODO actualizado
+  localStorage.setItem("datos", JSON.stringify(datos));
+
+  go(siguiente);
+}
+
+function mostrarDato(clave, idElemento){
+
+  let datos = JSON.parse(localStorage.getItem("datos"));
+
+  if(datos && datos[clave]){
+    document.getElementById(idElemento).innerText = datos[clave];
+  }
+
+}
+
+function obtenerDato(clave){
+  return localStorage.getItem(clave);
+}
+
+
+function downloadGoal(){
+
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  const texto = localStorage.getItem('goal') || "No definido";
+  const habito = document.querySelector('[data-key="dispara_avance"]')?.innerText || "Mi objetivo";
+  const nombre = localStorage.getItem("user_nombre") || "";
+  
+
+  const fecha = new Date().toLocaleDateString();
+
+  const fondo = new Image();
+  fondo.src = "../img/fondo_habito.jpg"; // asegúrate que esté en la misma carpeta
+
+  fondo.onload = function(){
+
+    // 🖼️ Dibujar fondo
+    ctx.drawImage(fondo, 0, 0, canvas.width, canvas.height);
+
+    // 🎯 Título
+    ctx.fillStyle = "#222222";
+    ctx.font = "bold 42px Georgia";
+    ctx.textAlign = "center";
+    ctx.fillText("Mi Compromiso", 400, 120);
+
+    // 📌 Objetivo
+    ctx.font = "26px Arial";
+    wrapText(ctx, "Mi objetivo es:", 400, 220, 600, 30);
+
+    ctx.font = "bold 30px Arial";
+    wrapText(ctx, texto, 400, 270, 600, 35);
+
+    // 🔥 Hábito
+    ctx.font = "26px Arial";
+    wrapText(ctx, "Y para lograrlo mi hábito clave es:", 400, 400, 600, 30);
+
+    ctx.font = "bold 30px Arial";
+    wrapText(ctx, habito, 400, 450, 600, 35);
+
+    // ✍️ Nombre y fecha
+    ctx.font = "20px Arial";
+    ctx.fillText(`— ${nombre}`, 400, 650);
+    ctx.fillText(fecha, 400, 700);
+
+    // 📥 Descargar (IMPORTANTE: va dentro del onload)
+    const link = document.createElement("a");
+    link.download = `${nombre}_habito.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
+
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(" ");
+  let line = "";
+  let lines = [];
+
+  for(let n = 0; n < words.length; n++) {
+    let testLine = line + words[n] + " ";
+    let metrics = ctx.measureText(testLine);
+    let testWidth = metrics.width;
+
+    if (testWidth > maxWidth && n > 0) {
+      lines.push(line);
+      line = words[n] + " ";
+    } else {
+      line = testLine;
+    }
+  }
+  lines.push(line);
+
+  lines.forEach((l, i) => {
+    ctx.fillText(l, x, y + (i * lineHeight));
+  });
+}
+
+function downloadGoal2(){
+  let texto = localStorage.getItem('goal') || "No definido";
+  const habito = document.querySelector('[data-key="dispara_avance"]')?.innerText || "Mi objetivo";
+  const nombre = localStorage.getItem("nombre") || "Usuario";
+
+
+const contenido = 
+`PROGRAMA ANTI PROCRASTINACIÓN
+
+Nombre: ${nombre}
+Fecha: ${new Date().toLocaleDateString()}
+
+----------------------------------
+
+MI HÁBITO CLAVE PARA ${texto} es:
+
+${habito}
+
+----------------------------------
+
+Compromiso:
+Durante los próximos 21 días trabajaré en este hábito con disciplina y enfoque.
+`;
+
+let blob = new Blob([contenido], {type:"text/plain"});
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${nombre}_mi_habito.txt`;
+  a.click();
+}
+
+
+function saveFinal(semanaId,Id) {
+  const textarea = document.getElementById(Id);
+  const texto = textarea.value.trim();
+  
+
+  if (!texto) {
+    alert("Escribe tu reflexión primero");
+    return;
+  }
+
+  const nombre = localStorage.getItem("user_nombre") || "";
+  
+
+  const contenido = `
+Reflexión ${semanaId}
+Nombre: ${nombre}
+
+---
+
+${texto}
+
+---
+
+Sigue avanzando. Este es solo el comienzo.
+`;
+
+  const blob = new Blob([contenido], { type: "text/plain" });
+  const enlace = document.createElement("a");
+
+  enlace.href = URL.createObjectURL(blob);
+  enlace.download = `${nombre}_Reflexion_${semanaId}.txt`;
+
+  enlace.click();
+}
+
+
+async function descargarCertificado() {
+  const { jsPDF } = window.jspdf;
+
+  const nombre = localStorage.getItem("user_nombre") || "";
+  const habito = localStorage.getItem("goal") || "No definido";
+  const fecha = new Date().toLocaleDateString();
+
+  const doc = new jsPDF();
+
+  const img = new Image();
+  img.src = "../img/fondo_cert.jpg";
+
+  img.onload = function () {
+
+    // 🖼 Fondo
+    doc.addImage(img, "JPEG", 0, 0, 210, 297);
+
+    // 🎓 TÍTULO
+    doc.setFont("times", "bold");
+    doc.setFontSize(26);
+    doc.text("CERTIFICADO DE COMPROMISO", 105, 50, { align: "center" });
+
+    // ✍️ Subtexto
+    doc.setFont("times", "normal");
+    doc.setFontSize(18);
+    doc.text("Otorgado a:", 105, 80, { align: "center" });
+
+    // 🧑 Nombre
+    doc.setFont("times", "bold");
+    doc.setFontSize(22);
+    doc.text(nombre, 105, 95, { align: "center" });
+
+    // 📄 Descripción
+    doc.setFont("times", "normal");
+    doc.setFontSize(14);
+    doc.text(
+      "Por completar satisfactoriamente 21 días de disciplina trabajando en el hábito:",
+      105,
+      115,
+      { align: "center", maxWidth: 160 }
+    );
+
+    // 🎯 Hábito
+    doc.setFont("times", "bold");
+    doc.setFontSize(16);
+    doc.text(habito, 105, 135, { align: "center" });
+
+    // 💬 Frase
+    doc.setFont("times", "italic");
+    doc.setFontSize(12);
+    doc.text(
+      "La disciplina que construyes hoy define la vida que tendrás mañana.",
+      105,
+      165,
+      { align: "center", maxWidth: 160 }
+    );
+
+    // 📅 Fecha
+    doc.setFont("times", "normal");
+    doc.setFontSize(12);
+    doc.text("Fecha: " + fecha, 30, 250);
+
+    // ✍️ Firma
+    doc.line(140, 245, 190, 245);
+    doc.text("Firma", 165, 252, { align: "center" });
+
+    // 🟡 SELLO
+    agregarSello(doc);
+
+    // 📄 Descargar PDF
+    doc.save("certificado.pdf");
+
+    // 🔘 MOSTRAR BOTÓN VOLVER
+    const btn = document.getElementById("btnInicio");
+    if (btn) {
+      btn.style.display = "inline-block";
+    }
+  };
+}
+
+ // 🟡 FUNCIÓN SELLO PRO
+
+function agregarSello(doc) {
+
+  const x = 150;
+  const y = 205;
+  const angulo = -15;
+
+  // 🎨 color tinta real
+    doc.setTextColor(150, 40, 40);
+    doc.setDrawColor(150, 40, 40);
+ 
+
+// muy desgastado
+doc.setTextColor(185, 155, 155);
+doc.setDrawColor(185, 155, 155);
+dibujarSello(doc, x, y, angulo);
+
+// leve refuerzo
+doc.setTextColor(145, 115, 115);
+doc.setDrawColor(145, 115, 115);
+dibujarSello(doc, x + 0.7, y + 0.7, angulo);
+
+}
+
+function dibujarSello(doc, x, y, angulo) {
+
+  // Círculos
+  doc.setLineWidth(0.8); // antes 1.5
+doc.circle(x, y, 30);
+
+doc.setLineWidth(0.3); // antes 0.5
+doc.circle(x, y, 24);
+
+  // Texto
+  doc.setFont("helvetica", "bold");
+
+  doc.setFontSize(11);
+  doc.text("VENCER LA PROCRASTINACIÓN", x, y + 12, {
+    align: "center",
+    angle: angulo
+  });
+
+  doc.setFontSize(20);
+  doc.text("21 DÍAS", x, y - 10, {
+    align: "center",
+    angle: angulo
+  });
+
+  doc.setFontSize(14);
+  doc.text("COMPLETADOS", x, y - 2, {
+    align: "center",
+    angle: angulo
+  });
+
+  doc.setFontSize(8);
+  doc.text("PROGRAMA COMPLETADO", x, y + 8, {
+    align: "center",
+    angle: angulo
+  });
+}
+
+function terminarSemana1(){
+
+  // Lo mandamos a semana 2
+  go("semana2");
+}
+
+function terminarSemana2(){
+
+  // Lo mandamos a semana 2
+  go("semana3");
+}
+
+function descargarRutinaPDF(){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  let y = 20;
+
+  doc.text("Mi rutina diaria", 20, y);
+  y += 10;
+
+  for(let i = 6; i <= 22; i++){
+    const valor = document.getElementById("hora"+i)?.value || "";
+    doc.text(`${i}:00 - ${valor}`, 20, y);
+    y += 8;
+  }
+
+  doc.save("rutina.pdf");
+}
+
+
+function abrirHorario() {
+  const modal = document.getElementById("modalHorario");
+  modal.style.display = "flex"; // 🔥 ESTO ES CLAVE
+  generarHorario();
+}
+
+function cerrarHorario(){
+  document.getElementById("modalHorario").style.display = "none";
+}
+
+
+function generarHorario() {
+  const contenedor = document.getElementById("horario");
+
+  if (!contenedor) {
+    console.error("No existe #horario");
+    return;
+  }
+
+  contenedor.innerHTML = "";
+
+  const data = JSON.parse(localStorage.getItem("rutinaDia8")) || {};
+
+  for (let i = 6; i <= 20; i++) {
+
+    const fila = document.createElement("div");
+    fila.style.display = "flex";
+    fila.style.alignItems = "center";
+    fila.style.marginBottom = "10px";
+    fila.style.background = "#f5f5f5"; // 🔥 para que lo veas
+    fila.style.padding = "8px";
+    fila.style.borderRadius = "8px";
+
+    const hora = document.createElement("div");
+    hora.textContent = `${i}:00`;
+    hora.style.width = "60px";
+    hora.style.fontWeight = "bold";
+    hora.style.color = "#333";
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "¿Qué harás?";
+    input.value = data[i] || "";
+
+    input.style.flex = "1";
+    input.style.padding = "8px";
+    input.style.border = "1px solid #ccc";
+    input.style.borderRadius = "6px";
+
+    input.addEventListener("input", () => {
+      data[i] = input.value;
+      localStorage.setItem("rutinaDia8", JSON.stringify(data));
+    });
+
+    fila.appendChild(hora);
+    fila.appendChild(input);
+
+    contenedor.appendChild(fila);
+  }
+}
+
+function guardarHorario(){
+  alert("Horario guardado ✅");
+  cerrarHorario();
+}
+
+function guardarRutina(){
+
+  // 🧠 1. Traer datos guardados automáticamente
+  let data = JSON.parse(localStorage.getItem("rutinaDia8")) || {};
+
+    // 🎨 2. Canvas
+
+const canvas = document.getElementById("canvasRutina");
+const ctx = canvas.getContext("2d");
+
+const fondo = new Image();
+fondo.src = "bg13.jpg";
+
+fondo.onload = function(){
+
+  // 🖼️ fondo
+  ctx.drawImage(fondo, 0, 0, canvas.width, canvas.height);
+
+  // 🎨 fondo blanco limpio
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(40, 40, 720, 920);
+
+  // 🖤 título
+  ctx.fillStyle = "#111";
+  ctx.font = "bold 36px Arial";
+  ctx.fillText("MI RUTINA DIARIA", 120, 100);
+
+  // 📅 fecha
+  ctx.font = "18px Arial";
+  ctx.fillStyle = "#666";
+  ctx.fillText(new Date().toLocaleDateString(), 300, 130);
+
+  let y = 180;
+
+  for (let i = 6; i <= 20; i++) {
+
+    let actividad = data[i];
+
+    if(actividad && actividad.trim() !== ""){
+
+      // ⏰ hora
+      ctx.fillStyle = "#888";
+      ctx.font = "18px Arial";
+      ctx.fillText(`${i}:00`, 70, y + 25);
+
+      // 📦 caja moderna
+      ctx.fillStyle = "#f1f3f5";
+      ctx.fillRect(130, y, 580, 50);
+
+      // 📝 texto
+      ctx.fillStyle = "#000";
+      ctx.font = "20px Arial";
+      ctx.fillText(actividad, 150, y + 30);
+
+      y += 65;
+    }
+  }
+
+  // 📥 descargar
+  const link = document.createElement("a");
+  link.download = "rutina_visual_pro.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+
+  cerrarHorario();
+  alert("Rutina PRO descargada 🚀");
+};
+}
+function generarMensajeFinal(){
+  const nombre = localStorage.getItem("user_nombre") || "";
+  const mensaje = `<strong>${nombre}</strong>
+Has completado el programa.
+
+Ahora es momento de:
+• Reconocer lo que sí lograste  
+• Aprender de los tropiezos  
+• Definir tu siguiente paso  
+
+Recuerda: esto no termina aquí.
+
+Convierte este proceso en un ciclo continuo.
+Cada repetición fortalece tu disciplina y tu identidad.
+
+🔥 <strong>${nombre}</strong>, ya no estás empezando... estás evolucionando.
+`;
+
+  document.getElementById("mensajeFinal").innerHTML = mensaje;
+}
+function terminarCiclo(){
+    go("final");
+    generarMensajeFinal(); // 🔥 esto faltaba
+}
+
+function resetApp(){
+  localStorage.clear();
+  location.reload();
+}
+
+
+function descargarPlanillaPro(){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const nombre = localStorage.getItem("nombre") || "Usuario";
+
+  // 🎨 COLOR HEADER
+  doc.setFillColor(40, 167, 69); // verde bonito
+  doc.rect(0, 0, 210, 30, "F");
+
+  // 🧠 TÍTULO
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(18);
+  doc.text("PLANILLA DE PROGRESO", 105, 18, null, null, "center");
+
+  // 🔽 reset color texto
+  doc.setTextColor(0, 0, 0);
+
+  // 👤 NOMBRE
+  doc.setFontSize(12);
+  doc.text(`Usuario: ${nombre}`, 20, 40);
+
+  // 🎯 OBJETIVO
+  doc.setFontSize(14);
+  doc.text("🎯 Objetivo de la semana", 20, 55);
+  doc.line(20, 58, 190, 58);
+
+  doc.line(20, 65, 190, 65);
+
+  // ✅ TRACKER
+  doc.text("✅ Seguimiento diario", 20, 80);
+
+  let y = 90;
+  for(let i = 1; i <= 7; i++){
+    doc.rect(20, y - 5, 5, 5); // checkbox
+    doc.text(`Día ${i}`, 30, y);
+    y += 10;
+  }
+
+  // 📊 AUTOEVALUACIÓN
+  y += 10;
+  doc.text("📊 Autoevaluación", 20, y);
+  y += 10;
+
+  doc.text("Energía (1-5): ______", 20, y);
+  y += 10;
+  doc.text("Disciplina (1-5): ______", 20, y);
+  y += 10;
+  doc.text("Enfoque (1-5): ______", 20, y);
+
+  // 🧠 REFLEXIÓN
+  y += 20;
+  doc.text("🧠 Reflexión", 20, y);
+  y += 10;
+
+  doc.line(20, y, 190, y);
+  y += 10;
+  doc.line(20, y, 190, y);
+  y += 10;
+  doc.line(20, y, 190, y);
+
+  // 🔥 FRASE FINAL
+  y += 20;
+  doc.setFontSize(11);
+  doc.setTextColor(100);
+
+  doc.text(
+    "🔥 La disciplina tarde o temprano vencerá la motivación.",
+    105,
+    y,
+    null,
+    null,
+    "center"
+  );
+
+  // 💾 DESCARGA
+  doc.save(`${nombre}_Planilla_Progreso.pdf`);
+}
+
+function validarYAvanzar(actual, siguiente) {
+    const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+    const error = document.getElementById("errorMsg");
+
+    if (checked.length < 4) {
+        error.style.display = "block";
+        return;
+    }
+
+    error.style.display = "none";
+    nextDay(actual, siguiente);
+}
+
+function selectOption(btn) {
+  const opciones = btn.parentElement.querySelectorAll("button");
+  opciones.forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  verificarRevision();
+}
+
+function verificarRevision(){
+  const items = document.querySelectorAll(".item");
+  let hayNo = false;
+
+  items.forEach(item => {
+    const noBtn = item.querySelector("button:last-child");
+    if(noBtn.classList.contains("active")){
+      hayNo = true;
+    }
+  });
+
+  const alerta = document.getElementById("alertaRevision");
+
+  if(hayNo){
+    alerta.style.display = "block";
+  } else {
+    alerta.style.display = "none";
+  }
+
+  return !hayNo; // 🔥 true = todo en SI, false = hay NO
+}
+
+function abrirPDF() {
+  window.open("libro.pdf", "_blank");
+}
+
+function guardarBloqueos(){
+  let datos = JSON.parse(localStorage.getItem("datos")) || {};
+
+  datos["bloqueos"] = document.getElementById("bloqueos").value;
+  datos["bloqueo_activo"] = document.getElementById("bloqueo_activo").value;
+
+  localStorage.setItem("datos", JSON.stringify(datos));
+
+  go("siguientePantalla");
+}
+
+let intervalo = null;
+
+
+function iniciarBloqueo(){
+
+  // 🚫 Evitar múltiples timers
+  if(intervalo !== null){
+    return;
+  }
+
+  let btn = document.querySelector(".btn-main");
+  let timerEl = document.getElementById("timer");
+
+  // 🔒 Desactivar botón y cambiar texto
+  btn.disabled = true;
+  btn.innerText = "En progreso...";
+
+  let tiempo = 5 * 60;
+
+  intervalo = setInterval(()=>{
+
+    tiempo--;
+
+    let min = Math.floor(tiempo / 60);
+    let sec = tiempo % 60;
+
+    timerEl.innerText = min + ":" + (sec < 10 ? "0" : "") + sec;
+
+    if(tiempo <= 0){
+      clearInterval(intervalo);
+      intervalo = null;
+
+      // ✅ Mensaje final
+      timerEl.innerText = "🔥 ¡Listo!";
+
+      // 🔓 Activar botón otra vez
+      btn.disabled = false;
+      btn.innerText = "Volver a empezar";
+    }
+
+  }, 1000);
+}
+
+
+let sonido = null; // 👉 global para poder detenerlo después
+
+
+function iniciarCuenta(){
+
+  let contador = 5;
+  const display = document.getElementById("countdown");
+  const btn = document.querySelector(".btn-vamos");
+
+  btn.disabled = true;
+
+  display.innerText = contador;
+
+  const intervalo = setInterval(() => {
+    contador--;
+    display.innerText = contador;
+
+    if(contador === 0){
+      clearInterval(intervalo);
+      display.innerText = "¡ACCION!";
+      // 🔊 sonido directo (100% funcional)
+       const sonido = new Audio("https://www.soundjay.com/button/beep-07.wav");
+        sonido.volume = 1; // 🔊 volumen máximo (0 a 1)
+          sonido.play();
+
+
+      // ⏱️ 👉 AQUÍ VA EL setTimeout
+      setTimeout(() => {
+        detenerAlarma();
+      }, 5000); // se apaga sola en 5 segundos
+
+      setTimeout(() => {
+        btn.disabled = false;
+      }, 800);
+    }
+
+  }, 1000);
+}
+
+function detenerAlarma(){
+  if(sonido){
+    sonido.pause();
+    sonido.currentTime = 0;
+  }
+}
+
+function evaluarProgreso(){
+
+  const d = valores.disciplina;
+  const c = valores.constancia;
+  const e = valores.enfoque;
+  const a = valores.accion;
+  const evidencia = document.getElementById("evidencia").value;
+
+  const promedio = (d + c + e + a) / 4;
+
+  let mensaje = "";
+
+  if(promedio >= 4){
+    mensaje = "🔥 Excelente progreso";
+  } else if(promedio >= 3){
+    mensaje = "⚡ Vas bien, pero puedes mejorar";
+  } else {
+    mensaje = "🚨 Necesitas ajustar";
+  }
+
+  if(evidencia.trim() === ""){
+    mensaje += " ⚠️ Escribe evidencia";
+  }
+
+  document.getElementById("resultado").innerText =
+    "Puntuación: " + promedio.toFixed(1) + " / 5\n" + mensaje;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const valores = {
+    disciplina: 0,
+    constancia: 0,
+    enfoque: 0,
+    accion: 0
+  };
+
+  document.querySelectorAll(".stars").forEach(starGroup => {
+    const spans = starGroup.querySelectorAll("span");
+    const item = starGroup.getAttribute("data-item");
+
+    spans.forEach((star, index) => {
+      star.addEventListener("click", () => {
+        
+        valores[item] = index + 1;
+
+        spans.forEach((s, i) => {
+          s.classList.toggle("active", i <= index);
+        });
+
+      });
+    });
+  });
+
+  // 👉 Hacemos global el objeto para usarlo en evaluarProgreso
+  window.valores = valores;
+
+});
+
+
+
+function descargarPlanilla() {
+  const habito = document.querySelector('[data-key="dispara_avance"]')?.innerText || "Mi objetivo";
+
+  const link = document.createElement('a');
+  link.href = '../assets/Planilla_Progreso_PRO.xlsx';
+  link.download = `Progreso - ${habito}.xlsx`;
+
+  link.click();
+}
+
+function descargarBloqueos(){
+
+  // 🧠 1. Obtener texto
+  let texto = document.getElementById("bloqueosInput").value;
+
+  // 💾 2. Guardar en localStorage
+  let datos = JSON.parse(localStorage.getItem("datos")) || {};
+  datos["bloqueos"] = texto;
+  localStorage.setItem("datos", JSON.stringify(datos));
+
+  // 🎨 3. Crear imagen
+  const canvas = document.getElementById("canvasBloqueos");
+  const ctx = canvas.getContext("2d");
+
+  const fondo = new Image();
+  fondo.src = "../img/fondo_bloqueos.jpg";
+
+  console.log("Ruta usada:", fondo.src);
+
+fondo.onload = function(){
+  console.log("✅ Imagen cargada correctamente");
+};
+
+fondo.onerror = function(){
+  console.log("❌ ERROR cargando imagen");
+};
+
+  fondo.onload = function(){
+
+    // 🖼️ Fondo
+    ctx.drawImage(fondo, 0, 0, canvas.width, canvas.height);
+
+    // 🧾 Caja blanca elegante
+    ctx.fillStyle = "rgba(255,255,255,0.9)";
+    ctx.fillRect(50, 100, 700, 800);
+
+    // 🖤 Título
+    ctx.fillStyle = "#111";
+    ctx.font = "bold 40px Georgia";
+    ctx.fillText("MIS DISTRACTORES", 120, 180);
+
+    // ✍️ Texto
+    ctx.font = "28px Georgia";
+
+    // 👉 dividir texto en líneas (IMPORTANTE)
+    let palabras = texto.split(" ");
+    let linea = "";
+    let y = 250;
+
+    for(let i=0; i<palabras.length; i++){
+      let prueba = linea + palabras[i] + " ";
+      let ancho = ctx.measureText(prueba).width;
+
+      if(ancho > 600){
+        ctx.fillText(linea, 100, y);
+        linea = palabras[i] + " ";
+        y += 40;
+      } else {
+        linea = prueba;
+      }
+    }
+
+    ctx.fillText(linea, 100, y);
+
+    // 📥 Descargar imagen
+    const link = document.createElement("a");
+    link.download = "mis_distractores.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }
+}
+
+
+function generarPosterYContinuar(config){
+
+  const { inputId, storageKey, titulo, siguiente, fondoImg } = config;
+
+  const texto = document.getElementById(inputId).value.trim();
+
+  if(texto === ""){
+    alert("Escribe primero ✍️");
+    return;
+  }
+
+  localStorage.setItem(storageKey, texto);
+
+  const canvas = document.getElementById("canvasPorque");
+  const ctx = canvas.getContext("2d");
+
+  const fondo = new Image();
+  fondo.src = fondoImg; // 🔥 dinámico
+
+  fondo.onload = function(){
+
+    ctx.drawImage(fondo, 0, 0, canvas.width, canvas.height);
+
+    // overlay elegante distinto según fondo
+    ctx.fillStyle = "rgba(0,0,0,0.5)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 45px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(titulo, canvas.width/2, 150);
+
+    ctx.font = "28px Arial";
+
+    let palabras = texto.split(" ");
+    let linea = "";
+    let y = 300;
+
+    palabras.forEach(p => {
+      let test = linea + p + " ";
+      let ancho = ctx.measureText(test).width;
+
+      if(ancho > 600){
+        ctx.fillText(linea, canvas.width/2, y);
+        linea = p + " ";
+        y += 40;
+      } else {
+        linea = test;
+      }
+    });
+
+    ctx.fillText(linea, canvas.width/2, y);
+
+    const link = document.createElement("a");
+    link.download = titulo.replace(" ", "_") + ".png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+
+    go(siguiente);
+  };
+}
+
+window.addEventListener("load", function(){
+
+  const pasoGuardado = localStorage.getItem("pasoActual");
+
+  console.log("Paso guardado:", pasoGuardado);
+
+  if(pasoGuardado && document.getElementById(pasoGuardado)){
+    go(pasoGuardado);
+  } else {
+    go("dia1"); // usa uno que sí exista
+  }
+
+});
+
+</script>
+
+<canvas id="canvasPorque" width="800" height="1200" style="display:none;"></canvas>
+
+
+
+</body>
+</html>
