@@ -2816,7 +2816,7 @@ function descargarBloqueos(){
   const ctx = canvas.getContext("2d");
 
   const fondo = new Image();
-  fondo.src = "../img/fondo_bloqueos.jpg";
+  fondo.src = "..img/fondo_bloqueos.jpg";
 
   console.log("Ruta usada:", fondo.src);
 
@@ -2945,7 +2945,7 @@ window.addEventListener("load", function(){
   if(pasoGuardado && document.getElementById(pasoGuardado)){
     go(pasoGuardado);
   } else {
-    go("dia1"); // usa uno que sí exista
+    go("entrada"); // usa uno que sí exista
   }
 
 });
