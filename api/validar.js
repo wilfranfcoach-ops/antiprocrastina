@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     }
 
     // 🧪 TEST (sin Gumroad todavía)
-    if (codigo === "123") {
+    if (codigo === "_R8g_E9Zue7FcaFGcklNXQ==") {
       return res.status(200).json({ ok: true });
     }
 
