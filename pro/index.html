@@ -62,7 +62,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* 👈 antes center */
 }
 
 .overlay-dia19 {
@@ -627,13 +627,13 @@ textarea::placeholder {
   display: none;
   width: 100%;
   min-height: 100vh;
-  height: 100dvh;
+  height: auto; /* 👈 CAMBIO CLAVE (quita 100dvh) */
   padding: 20px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; 
 
-  justify-content: center;
+  justify-content: flex-start; /* 👈 antes center */
   align-items: center;
   flex-direction: column;
   gap: 20px;
@@ -1285,7 +1285,6 @@ refuerza con distracción.<h6><br><br>
    <textarea id="bloqueosInput" placeholder="Ej: Instagram, notificaciones, pensamientos negativos..."></textarea>
   <div class="acciones-inline">
     <button onclick="descargarBloqueos()">Descargar mis distractores</button>
-    
   </div>
 
 <canvas id="canvasBloqueos" width="800" height="1000" style="display:none;"></canvas>
