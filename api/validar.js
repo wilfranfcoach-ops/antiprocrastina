@@ -24,4 +24,7 @@ export default async function handler(req, res) {
     console.error(error);
     return res.status(500).json({ error: "Error interno" });
   }
+
+console.log("PRODUCT ID USADO:", "TU_PRODUCT_ID");
+console.log("Respuesta Gumroad:", data);
 }
