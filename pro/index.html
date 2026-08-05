@@ -46,12 +46,12 @@ body{
 }
 
 .overlay {
-  max-width: 500px;
+  max-width: 550px;
   width: 90%;
-
   background: rgba(0,0,0,0.55);
-  padding: 25px;
+  padding: 20px;
   border-radius: 18px;
+  box-sizing: border-box;
 
   backdrop-filter: blur(12px);
   text-align: center;
@@ -63,6 +63,9 @@ body{
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* 👈 antes center */
+
+  max-height: 95dvh;   /* 🔥 CLAVE */
+  overflow-y: auto;   /* 🔥 activa scroll */
 }
 
 .overlay-dia19 {
@@ -79,8 +82,9 @@ body{
 
 }
 
+
 /* TEXT */
-h1{font-size:20px;
+h1{font-size:25px;
 margin-bottom: 5px;
 margin: 0;
 }
@@ -118,6 +122,7 @@ textarea{
 /* BUTTON */
 button {
   width:100%;
+  max-width: 320px; /* 🔥 evita que se estiren infinito */
   padding:12px; /* más delgado */
   border:none;
   border-radius:14px;
@@ -420,26 +425,32 @@ h6 {
 
 
 /* 📱 MOBILE */
-@media (max-width: 600px) {
-   .final-content {
-    max-width: 100%;
-    padding: 20px;
+@media (max-width: 480px) {
+
+  .screen {
+    padding: 15px;
   }
 
-  .cierre h2 {
+  .overlay {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+    mergin: 0px;
+  }
+
+
+  h1 {
     font-size: 22px;
   }
 
-  .cierre p {
-    font-size: 16px;
+  p {
+    font-size: 14px;
   }
 
-  .botones-final {
-    flex-direction: column;
-  }
-
-  .botones-final button {
-    width: 100%;
+  button {
+    width:100%;
+    font-size: 15px;
+    padding: 14px;
   }
 
 }
@@ -626,14 +637,15 @@ textarea::placeholder {
 .screen {
   display: none;
   width: 100%;
-  min-height: 100vh;
-  height: auto; /* 👈 CAMBIO CLAVE (quita 100dvh) */
+  min-height: 100dvh;
+  height: 100dvh; /* 👈 CAMBIO CLAVE (quita 100dvh) */
   padding: 20px;
+  padding-bottom: 40px; /* 🔥 evita que el último botón se corte */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; 
-
-  justify-content: flex-start; /* 👈 antes center */
+  justify-content: center;
+ 
   align-items: center;
   flex-direction: column;
   gap: 20px;
@@ -695,6 +707,7 @@ iframe {
   left: 30px;
   position: fixed;
   z-index: 2147483647; /* máximo posible */
+  display: none; /* 👈 oculto por defecto */
 
   width: 50px;
   height: 50px;
@@ -703,7 +716,7 @@ iframe {
   background: rgba(0,0,0,0.7);
   color: white;
 
-  display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -868,9 +881,22 @@ iframe {
 
 
 
-.card.light{
+.card.light {
   background: transparent;
   text-align: center;
+  margin-top: 20px;   /* controla espacio arriba */
+  padding: 10px 0;    /* reduce aire interno */
+
+}
+
+.card.light h6 {
+  margin: 10px 0 5px 0;
+  font-size: 18px;
+}
+
+.card.light p {
+  margin: 5px 0 10px 0;
+  font-size: 14px;
 }
 
 textarea{
@@ -888,7 +914,8 @@ input{
 
 input.escoger{
   padding: 8px;
-  width: 200px;
+  width:100%;
+  max-width: 100%;
   text-align: center;
 }
 
@@ -1061,7 +1088,8 @@ select {
 <body>
 <!--<audio id="alarma" src="alarma.mp3"></audio>-->
 <audio id="alarma" src="https://www.soundjay.com/button/beep-07.wav"></audio>
-<!--<button class="reini" onclick="resetApp()">Reiniciar app</button>-->
+<button class="reini" onclick="resetApp()">Reiniciar app</button>
+
 <button onclick="toggleAudio()" id="btnAudio">
    <span class="icono">🔊</span>
    <span class="texto">Sonido</span>
@@ -1184,9 +1212,9 @@ select {
 <!-- 2. DISPARADOR -->
 <div id="disparadores" class="screen" style="background-image:url('../img/bg2.jpg')">
   <div class="overlay">
-   <h6>Vamos para adelante entonces a derribar ese muro<h6>
-   <h6>La procrastinación es un hábito que  se activa por incomodidad y se 
-refuerza con distracción.<h6><br><br>
+   <h1>Vamos para adelante a derribar ese muro<h1>
+   <h3>La procrastinación es un hábito que  se activa por incomodidad y se 
+refuerza con distracción.<h3><br><br>
  <div>
     <h5>Identifica el disparador de tu procrastinación o aquel habito  que te impide ir adelante para empezar</h5>
      <h3> (Ejem: abrir redes sociales cuando algo te resulta difícil o aburrido)</h3>
@@ -1312,7 +1340,7 @@ refuerza con distracción.<h6><br><br>
     <h1>Día 4</h1>
     <p>Toma acción inmediata</p>
     <h3>(Recuerda no lo pienses 2 veces, actua)</h3>
-    <textarea id="d4"></textarea>
+    <textarea id="d4" placeholder="Escribe lo que vas a hacer y arranca de una..."></textarea>
     <button onclick="iniciarCuenta('dia5')" class="btn-vamos">
       VAMOS
        </button>
@@ -1829,6 +1857,12 @@ function go(id){
 
   localStorage.setItem("pasoActual", id);
 
+  const audioActivo = localStorage.getItem("audioActivo");
+
+   if (audioActivo === "true") {
+     localStorage.setItem("audioPantalla", id);
+    }
+
   verificarAudio(id);
 
   if(id === "dia8"){
@@ -1847,25 +1881,56 @@ function go(id){
 
 function startAudio(){
   const audio = document.getElementById("audio");
- 
+  const btn = document.getElementById("btnAudio");
+
   if (audio.paused) {
     audio.play().catch(()=>{});
   }
+
+  // 🔥 GUARDAS TODO
   localStorage.setItem("audioActivo", "true");
+
+  const pasoActual = localStorage.getItem("pasoActual");
+  localStorage.setItem("audioPantalla", pasoActual);
+
+  btn.style.display = "flex";
 }
 
-function verificarAudio() {
+function verificarAudio(id) {
   const audioActivo = localStorage.getItem("audioActivo");
 
-  if (audioActivo === "true") {
-    const audio = document.getElementById("audio");
+  console.log("pantalla:", id, "audioActivo:", audioActivo);
 
-    if (audio.paused) {
+  const audio = document.getElementById("audio");
+  const btnAudio = document.getElementById("btnAudio");
+
+  if (audioActivo === "true") {
+
+    // 🔊 Intenta reproducir (puede fallar hasta que el usuario interactúe)
+    if (audio && audio.paused) {
       audio.play().catch(()=>{});
+    }
+
+    // 🔘 Mostrar botón y estado correcto
+    if (btnAudio) {
+      btnAudio.style.display = "flex";
+      btnAudio.textContent = "🔊";
+    }
+
+  } else {
+
+    // 🔇 Pausar si estaba sonando
+    if (audio && !audio.paused) {
+      audio.pause();
+    }
+
+    // 🔘 Mostrar botón como apagado
+    if (btnAudio) {
+      btnAudio.style.display = "flex";
+      btnAudio.textContent = "🔇";
     }
   }
 }
-
 function toggleAudio(){
   const audio = document.getElementById("audio");
   const btn = document.getElementById("btnAudio");
@@ -2940,13 +3005,20 @@ window.addEventListener("load", function(){
   const pasoGuardado = localStorage.getItem("pasoActual");
 
   console.log("Paso guardado:", pasoGuardado);
+  
 
   if(pasoGuardado && document.getElementById(pasoGuardado)){
     go(pasoGuardado);
   } else {
-    go("entrada"); // usa uno que sí exista
+    go("entrada");
   }
 
+  verificarAudio(id); // 🔥 AQUÍ es donde va
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  verificarAudio(id);
 });
 
 </script>
