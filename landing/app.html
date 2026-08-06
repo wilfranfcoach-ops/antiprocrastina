@@ -189,7 +189,7 @@ button {
 
 <div class="container">
 
-<h1>Responde con calma..</h1>
+<h1><span id="nombreUsuario"></span> responde con calma..</h1>
 
 <p id="text"></p>
 
@@ -340,6 +340,13 @@ function siguiente(){
 }
 
 function continuar(){
+
+  const musica = document.getElementById("musica");
+
+  if (musica) {
+    musica.pause();
+    musica.currentTime = 0;
+  }
   window.open("https://wilfrancoach.gumroad.com/l/anti-procrastinacion-pro");
 }
 
@@ -374,6 +381,14 @@ if (nombreUsuario) {
     document.getElementById("nombreUsuario").innerText =
     "Hola " + nombreUsuario;
 }
+
+  const nombre = localStorage.getItem("user_nombre");
+
+  if (nombre) {
+    document.getElementById("nombreUsuario").textContent = nombre;
+  } else {
+    document.getElementById("nombreUsuario").textContent = "Invitado";
+  }
 
 </script>
 
